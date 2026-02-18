@@ -21,6 +21,7 @@ class Router
     private static $params = [];
 
     /**
+     * Регистрация роутов в ядре
      * @param $name
      * @param $params
      * @return void
@@ -38,6 +39,7 @@ class Router
     }
 
     /**
+     * Возвращает список роутов
      * @return array[]
      */
     public static function getRouteList() :array
@@ -46,15 +48,19 @@ class Router
     }
 
     /**
+     * Поиск роута
      * @param $method
      * @param $uri
      * @return false|mixed
      */
-    private static function searchRoute($method, $uri){
+    private static function searchRoute($method, $uri) :string|null
+    {
+        //Поиск роута по полному совпадению
         if(isset(self::$routes[$method][$uri])){
             return self::$routes[$method][$uri];
         }
 
+        //Поиск сложных роутов с данными в uri "{id}"
         foreach(self::$routes[$method] as $route => $handler){
             $pattern = self::compilePattern($route);
 
@@ -73,7 +79,13 @@ class Router
         return null;
     }
 
-    private static function compilePattern($route){
+    /**
+     * Компиляция роута в регулярку
+     * @param $route
+     * @return string
+     */
+    private static function compilePattern($route) :string
+    {
         $pattern = str_replace('/', '\/', $route);
 
         $pattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[^\/]+)', $pattern);
@@ -81,7 +93,13 @@ class Router
         return '/^' . $pattern . '$/';
     }
 
-    public static function dispatch(){
+    /**
+     * Запуск маршрутизатора
+     * @return void
+     * @throws \Exception
+     */
+    public static function dispatch() :void
+    {
         $method = strtolower($_SERVER['REQUEST_METHOD']);
         $uri = $_SERVER['REQUEST_URI'];
 
@@ -90,7 +108,14 @@ class Router
         self::handle($handler);
     }
 
-    private static function handle($handler){
+    /**
+     * Запуск обработчика роута
+     * @param $handler
+     * @return mixed
+     * @throws \Exception
+     */
+    private static function handle($handler) :object
+    {
         list($controller, $method) = explode('@', $handler);
 
         $controllerClass = 'App\\Controllers\\' . $controller;

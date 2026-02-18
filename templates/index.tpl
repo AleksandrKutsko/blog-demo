@@ -2,126 +2,31 @@
 
 
 {block name="content"}
-    <section>
-        <div class="container">
-            <div class="blog-block">
-                <div class="blog-block__top">
-                    <h2>Category 1</h2>
-                    <a href="#">View All</a>
-                </div>
 
-                <div class="blog-block__grid">
-                    <div class="blog-block__grid_item">
-                        <img src="images/blog1.webp" alt="">
-                        <div>
-                            <h3>Lorem ipsum dolor sit amer</h3>
-                            <span>July 20, 2025</span>
-                            <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                            <a href="#">Continue Reading</a>
-                        </div>
+    {section name=row loop=$categories}
+        <section>
+            <div class="container">
+                <div class="blog-block">
+                    <div class="blog-block__top">
+                        <h2>{$categories[row]->title}</h2>
+                        <a href="/category/{$categories[row]->id}">Все статьи</a>
                     </div>
-                    <div class="blog-block__grid_item">
-                        <img src="images/blog2.webp" alt="">
-                        <div>
-                            <h3>Lorem ipsum dolor sit amer</h3>
-                            <span>July 20, 2025</span>
-                            <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                            <a href="#">Continue Reading</a>
-                        </div>
-                    </div>
-                    <div class="blog-block__grid_item">
-                        <img src="images/blog3.jpg" alt="">
-                        <div>
-                            <h3>Lorem ipsum dolor sit amer</h3>
-                            <span>July 20, 2025</span>
-                            <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                            <a href="#">Continue Reading</a>
-                        </div>
+
+                    <div class="blog-block__grid">
+                        {section name=postRow loop=$categoriesPosts[$categories[row]->id]}
+                            <div class="blog-block__grid_item">
+                                <img src="{$categoriesPosts[$categories[row]->id][postRow]->image_path}" alt="">
+                                <div>
+                                    <h3>{$categoriesPosts[$categories[row]->id][postRow]->title}</h3>
+                                    <span>{$categoriesPosts[$categories[row]->id][postRow]->created_at}</span>
+                                    <p>{$categoriesPosts[$categories[row]->id][postRow]->description}</p>
+                                    <a href="/post/{$categoriesPosts[$categories[row]->id][postRow]->id}">Подробнее...</a>
+                                </div>
+                            </div>
+                        {/section}
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="container">
-            <div class="blog-block">
-                <div class="blog-block__top">
-                    <h2>Category 1</h2>
-                    <a href="#">View All</a>
-                </div>
-
-                <div class="blog-block__grid">
-                    <div class="blog-block__grid_item">
-                        <img src="images/blog1.webp" alt="">
-                        <div>
-                            <h3>Lorem ipsum dolor sit amer</h3>
-                            <span>July 20, 2025</span>
-                            <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                            <a href="#">Continue Reading</a>
-                        </div>
-                    </div>
-                    <div class="blog-block__grid_item">
-                        <img src="images/blog2.webp" alt="">
-                        <div>
-                            <h3>Lorem ipsum dolor sit amer</h3>
-                            <span>July 20, 2025</span>
-                            <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                            <a href="#">Continue Reading</a>
-                        </div>
-                    </div>
-                    <div class="blog-block__grid_item">
-                        <img src="images/blog3.jpg" alt="">
-                        <div>
-                            <h3>Lorem ipsum dolor sit amer</h3>
-                            <span>July 20, 2025</span>
-                            <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                            <a href="#">Continue Reading</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="container">
-            <div class="blog-block">
-                <div class="blog-block__top">
-                    <h2>Category 1</h2>
-                    <a href="#">View All</a>
-                </div>
-
-                <div class="blog-block__grid">
-                    <div class="blog-block__grid_item">
-                        <img src="images/blog1.webp" alt="">
-                        <div>
-                            <h3>Lorem ipsum dolor sit amer</h3>
-                            <span>July 20, 2025</span>
-                            <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                            <a href="#">Continue Reading</a>
-                        </div>
-                    </div>
-                    <div class="blog-block__grid_item">
-                        <img src="images/blog2.webp" alt="">
-                        <div>
-                            <h3>Lorem ipsum dolor sit amer</h3>
-                            <span>July 20, 2025</span>
-                            <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                            <a href="#">Continue Reading</a>
-                        </div>
-                    </div>
-                    <div class="blog-block__grid_item">
-                        <img src="images/blog3.jpg" alt="">
-                        <div>
-                            <h3>Lorem ipsum dolor sit amer</h3>
-                            <span>July 20, 2025</span>
-                            <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                            <a href="#">Continue Reading</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    {/section}
 {/block}
