@@ -7,7 +7,7 @@ class Router
     /**
      * @var array[] Массив маршрутов. url => handler
      */
-    private static $routes = [
+    private static array $routes = [
         'get' => [],
         'post' => [],
         'put' => [],
@@ -16,9 +16,14 @@ class Router
     ];
 
     /**
+     * @var array Наименования роутов. Для генерации
+     */
+    private static array $namedRoutes = [];
+
+    /**
      * @var array[] Параметры из url
      */
-    private static $params = [];
+    private static array $params = [];
 
     /**
      * Регистрация роутов в ядре
@@ -31,9 +36,14 @@ class Router
         if(isset(self::$routes[$name])){
             $url = (isset($params[0]) && str_contains($params[0], '/')) ? $params[0] : false;
             $handler = (isset($params[1]) && str_contains($params[1], '@')) ? $params[1] : false;
+            $routeName = (isset($params[2])) ? $params[2] : false;
 
             if($url && $handler){
                 self::$routes[$name][$url] = $handler;
+            }
+
+            if($url && $routeName){
+                self::$namedRoutes[$routeName] = $url;
             }
         }
     }
@@ -53,7 +63,7 @@ class Router
      * @param $uri
      * @return false|mixed
      */
-    private static function searchRoute($method, $uri) :string|null
+    private static function searchRoute(string $method, string $uri) :string|null
     {
         //Поиск роута по полному совпадению
         if(isset(self::$routes[$method][$uri])){
@@ -84,7 +94,7 @@ class Router
      * @param $route
      * @return string
      */
-    private static function compilePattern($route) :string
+    private static function compilePattern(string $route) :string
     {
         $pattern = str_replace('/', '\/', $route);
 
@@ -101,7 +111,7 @@ class Router
     public static function dispatch() :void
     {
         $method = strtolower($_SERVER['REQUEST_METHOD']);
-        $uri = $_SERVER['REQUEST_URI'];
+        $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
         $handler = self::searchRoute($method, $uri) ?? self::searchRoute('get', '/404');
 
@@ -114,7 +124,7 @@ class Router
      * @return mixed
      * @throws \Exception
      */
-    private static function handle($handler) :object
+    private static function handle(string $handler) :null
     {
         list($controller, $method) = explode('@', $handler);
 
@@ -131,5 +141,27 @@ class Router
         }
 
         return call_user_func_array([$controller, $method], self::$params);
+    }
+
+    /**
+     * Получить url по имени роута с нужными параметрами
+     * @param string $name
+     * @param array $params
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function url(string $name, array $params = [])
+    {
+        if(!isset(self::$namedRoutes[$name])){
+            throw new \Exception("Маршрут не найден");
+        }
+
+        $url = self::$namedRoutes[$name];
+
+        foreach($params as $k => $v){
+            $url = str_replace("{{$k}}", $v, $url);
+        }
+
+        return $url;
     }
 }

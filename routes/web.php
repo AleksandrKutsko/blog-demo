@@ -1,7 +1,7 @@
 <?php
 use App\Core\Router;
 
-Router::get('/404', 'HomeController@notFound');
-Router::get('/', 'HomeController@index');
-Router::get('/category/{id}', 'CategoryController@show');
-Router::get('/post/{id}', 'PostController@show');
+Router::get('/404', 'HomeController@notFound', 'not-found');
+Router::get('/', 'HomeController@index', 'main-page');
+Router::get('/category/{id}/posts', 'CategoryController@show', 'category-show');
+Router::get('/post/{id}', 'PostController@show', 'post-show');

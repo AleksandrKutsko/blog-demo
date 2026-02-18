@@ -6,19 +6,18 @@
         <div class="container">
             <div class="blog-block">
                 <div class="blog-block__top">
-                    <h2>Article content</h2>
+                    <div class="blog-block__top_title">
+                        <h2>{$post->title}</h2>
+                        <p><strong>Просмотров: {$post->views}</strong></p>
+                        <p>{$post->description}</p>
+                    </div>
+                    <a href="{route name='main-page'}">На главную</a>
                 </div>
 
                 <div class="article-content">
-                    <img src="images/blog1.webp" alt="">
+                    <img src="{$post->image_path}" alt="">
 
-                    <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                    <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                    <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                    <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                    <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                    <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                    <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
+                    {$post->content}
                 </div>
             </div>
         </div>
@@ -28,37 +27,25 @@
         <div class="container">
             <div class="blog-block">
                 <div class="blog-block__top">
-                    <h2>Other articles</h2>
+                    <h2>Похожие посты</h2>
                 </div>
 
                 <div class="blog-block__grid">
-                    <div class="blog-block__grid_item">
-                        <img src="images/blog1.webp" alt="">
-                        <div>
-                            <h3>Lorem ipsum dolor sit amer</h3>
-                            <span>July 20, 2025</span>
-                            <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                            <a href="#">Continue Reading</a>
+                    {foreach $relatedPosts as $post}
+                        <div class="blog-block__grid_item">
+                            <div class="blog-block__grid_item__views">
+                                <img src="/images/views.svg" alt="">
+                                <span>{$post->views}</span>
+                            </div>
+                            <img src="{$post->image_path}" alt="">
+                            <div>
+                                <h3>{$post->title}</h3>
+                                <span>{$post->created_at}</span>
+                                <p>{$post->description}</p>
+                                <a href="{route name='post-show' id=$post->id}">Подробнее...</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="blog-block__grid_item">
-                        <img src="images/blog2.webp" alt="">
-                        <div>
-                            <h3>Lorem ipsum dolor sit amer</h3>
-                            <span>July 20, 2025</span>
-                            <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                            <a href="#">Continue Reading</a>
-                        </div>
-                    </div>
-                    <div class="blog-block__grid_item">
-                        <img src="images/blog3.jpg" alt="">
-                        <div>
-                            <h3>Lorem ipsum dolor sit amer</h3>
-                            <span>July 20, 2025</span>
-                            <p>Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer. Lorem ipsum dolor sit amer.</p>
-                            <a href="#">Continue Reading</a>
-                        </div>
-                    </div>
+                    {/foreach}
                 </div>
             </div>
         </div>

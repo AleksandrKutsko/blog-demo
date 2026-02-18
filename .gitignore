@@ -19,9 +19,5 @@ docker-compose.override.yml
 # Logs
 *.log
 
-# Uploads
-/public/uploads/*
-!/public/uploads/.gitkeep
-
 # Docker volumes
 /mysql_data/

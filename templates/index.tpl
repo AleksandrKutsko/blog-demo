@@ -3,30 +3,34 @@
 
 {block name="content"}
 
-    {section name=row loop=$categories}
+    {foreach $categories as $category}
         <section>
             <div class="container">
                 <div class="blog-block">
                     <div class="blog-block__top">
-                        <h2>{$categories[row]->title}</h2>
-                        <a href="/category/{$categories[row]->id}">Все статьи</a>
+                        <h2>{$category->title}</h2>
+                        <a href="{route name='category-show' id=$category->id}">Все статьи</a>
                     </div>
 
                     <div class="blog-block__grid">
-                        {section name=postRow loop=$categoriesPosts[$categories[row]->id]}
+                        {foreach $categoriesPosts[$category->id] as $post}
                             <div class="blog-block__grid_item">
-                                <img src="{$categoriesPosts[$categories[row]->id][postRow]->image_path}" alt="">
+                                <div class="blog-block__grid_item__views">
+                                    <img src="/images/views.svg" alt="">
+                                    <span>{$post->views}</span>
+                                </div>
+                                <img src="{$post->image_path}" alt="">
                                 <div>
-                                    <h3>{$categoriesPosts[$categories[row]->id][postRow]->title}</h3>
-                                    <span>{$categoriesPosts[$categories[row]->id][postRow]->created_at}</span>
-                                    <p>{$categoriesPosts[$categories[row]->id][postRow]->description}</p>
-                                    <a href="/post/{$categoriesPosts[$categories[row]->id][postRow]->id}">Подробнее...</a>
+                                    <h3>{$post->title}</h3>
+                                    <span>{$post->created_at}</span>
+                                    <p>{$post->description}</p>
+                                    <a href="{route name='post-show' id=$post->id}">Подробнее...</a>
                                 </div>
                             </div>
-                        {/section}
+                        {/foreach}
                     </div>
                 </div>
             </div>
         </section>
-    {/section}
+    {/foreach}
 {/block}

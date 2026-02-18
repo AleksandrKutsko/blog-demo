@@ -66,6 +66,7 @@ header{
   display: flex;
   flex-direction: column;
   gap: 10px;
+  position: relative;
 
   &>img{
     width: 100%;
@@ -79,6 +80,26 @@ header{
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+
+  .blog-block__grid_item__views{
+    position: absolute;
+    padding: 5px 15px;
+    background: #fff;
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-background);
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 7px;
+    right: 0;
+    top: 10px;
+
+    img{
+      width: 25px;
+    }
   }
 }
 
@@ -130,5 +151,28 @@ footer{
 
   p{
     margin: 10px 0;
+  }
+}
+.blog-block__sort{
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  align-items: center;
+}
+.sort-list{
+  display: flex;
+  list-style: none;
+  gap: 15px;
+  font-size: 14px;
+}
+.sort-list{
+  a{
+    font-weight: 400;
+
+    &.current{
+      font-weight: 700;
+      color: var(--color-background);
+    }
   }
 }

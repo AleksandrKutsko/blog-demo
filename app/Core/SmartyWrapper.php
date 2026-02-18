@@ -18,6 +18,8 @@ class SmartyWrapper
         $this->smarty->compile_check = true;
         $this->smarty->debugging = false;
         $this->smarty->caching = false;
+
+        $this->registerRouteFunction();
     }
 
     public function render($template, $data = [])
@@ -34,5 +36,34 @@ class SmartyWrapper
             $this->smarty->assign($key, $value);
         }
         $this->smarty->display($template);
+    }
+
+    /**
+     * Регистрация функции route для генерации url в шаблонах
+     * @return void
+     * @throws \Smarty\Exception
+     */
+    private function registerRouteFunction()
+    {
+        $this->smarty->registerPlugin('function', 'route', function($params){
+            $name = $params['name'] ?? null;
+            $routeParams = $params['params'] ?? [];
+
+            // Если параметры переданы строкой вида "id=1,slug=test"
+            if (is_string($routeParams)) {
+                parse_str(str_replace(',', '&', $routeParams), $routeParams);
+            }
+
+            // Удаляем служебные параметры Smarty
+            unset($params['name'], $params['params']);
+
+            $routeParams = array_merge($routeParams, $params);
+
+            try{
+                return Router::url($name, $routeParams);
+            } catch (\Exception $e){
+                return '#';
+            }
+        });
     }
 }

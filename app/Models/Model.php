@@ -12,6 +12,8 @@ class Model
 
     protected static $primaryKey = 'id';
 
+    public static $count;
+
     protected $attributes;
 
     public function __construct()
@@ -51,7 +53,7 @@ class Model
         return self::prepare($data);
     }
 
-    private static function prepare($data){
+    public static function prepare($data){
         $obj = new static();
 
         $obj->attributes = $data;
@@ -65,6 +67,8 @@ class Model
         foreach($fetchData as $item){
             $preparedItems[] = self::prepare($item);
         }
+
+        self::$count = count($preparedItems);
 
         return $preparedItems;
     }
