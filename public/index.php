@@ -1,14 +1,18 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\Config\Database;
+use App\Core\SmartyWrapper;
+use App\Core\Router;
 
 try {
-    $db = Database::getInstance();
-    echo "Подключение к базе данных успешно!<br>";
-} catch (Exception $e) {
-    echo "Ошибка подключения к БД: " . $e->getMessage() . "<br>";
-}
+    require_once __DIR__ . '/../routes/web.php';
 
-// Информация о PHP
-phpinfo();
+    //var_dump(Router::getRouteList());
+    Router::dispatch();
+
+} catch (Exception $e) {
+    $smarty = new SmartyWrapper();
+    $smarty->display('error.tpl', [
+        'page_description' => $e->getMessage()
+    ]);
+}

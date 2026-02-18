@@ -1,0 +1,16 @@
+@media screen and (max-width: 767px) {
+  .blog-block__grid {
+    -ms-grid-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 576px) {
+  .blog-block__grid {
+    -ms-grid-columns: 1fr;
+    grid-template-columns: 1fr;
+    grid-row-gap: 40px;
+  }
+  section {
+    padding: 40px 0;
+  }
+}

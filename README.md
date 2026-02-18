@@ -13,7 +13,7 @@
 
 1. **Клонировать репозиторий**
    ```bash
-   git clone <url-вашего-репозитория>
+   git clone https://github.com/AleksandrKutsko/blog-demo.git
    cd <имя-папки-проекта>
 
 2. **Запустить Docker контейнеры**
