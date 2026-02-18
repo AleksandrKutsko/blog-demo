@@ -1,0 +1,27 @@
+# Docker
+docker-compose.override.yml
+
+# PHP
+/vendor/
+/composer.lock
+
+# Smarty
+/templates_c/
+/cache/
+
+/.idea/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Uploads
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+# Docker volumes
+/mysql_data/

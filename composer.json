@@ -1,0 +1,25 @@
+{
+    "name": "blog/demo-project",
+    "description": "Test blog project",
+    "type": "project",
+    "require": {
+        "smarty/smarty": "^5.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "echo 'Smarty installed successfully!'"
+        ]
+    },
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Aleksandr Kutsko",
+            "email": "sadik1997@yandex.ru"
+        }
+    ]
+}
