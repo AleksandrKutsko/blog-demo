@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Category;
+use App\Services\PostService;
 
 class HomeController extends Controller
 {
@@ -14,16 +15,13 @@ class HomeController extends Controller
     public function index() :void
     {
         $categories = Category::getAll();
-        $categoriesPosts = [];
 
-        foreach($categories as $category){
-            $categoriesPosts[$category->id] = $category->posts();
-        }
+        //Получение постов для категорий. Без проблемы n+1
+        $categories = PostService::getPostsForCategories($categories);
 
         $this->smarty()->display('index.tpl', [
             'page_title' => 'Главная',
-            'categories' => $categories,
-            'categoriesPosts' => $categoriesPosts
+            'categories' => $categories
         ]);
     }
 

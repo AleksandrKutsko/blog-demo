@@ -16,6 +16,12 @@ class Category extends Model
      */
     public function posts($limit = 3, $sort = 'created_at', $orderBy = 'desc', $offset = null) :array
     {
+        $availableSort = ['created_at', 'views'];
+        $availableOrder = ['desc', 'asc'];
+
+        $sort = in_array($sort, $availableSort) ? $sort : 'created_at';
+        $orderBy = in_array($orderBy, $availableOrder) ? $orderBy : 'desc';
+
         $sql = "SELECT p.*
             FROM posts as p
             JOIN post_category as pc

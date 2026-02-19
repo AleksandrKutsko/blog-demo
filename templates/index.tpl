@@ -13,7 +13,7 @@
                     </div>
 
                     <div class="blog-block__grid">
-                        {foreach $categoriesPosts[$category->id] as $post}
+                        {foreach $category->posts as $post}
                             <div class="blog-block__grid_item">
                                 <div class="blog-block__grid_item__views">
                                     <img src="/images/views.svg" alt="">

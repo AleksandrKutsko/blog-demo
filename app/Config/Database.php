@@ -30,7 +30,7 @@ class Database
         try {
             $this->connection = new PDO($dsn, $username, $password, $options);
         } catch (PDOException $e) {
-            return false;
+            throw new \Exception('Ошибка подключения к БД');
         }
     }
 

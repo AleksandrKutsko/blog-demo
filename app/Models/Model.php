@@ -31,11 +31,21 @@ class Model
     /**
      * Геттер свойств модели
      * @param $name
-     * @return string|null
+     * @return string|null|array
      */
-    public function __get($name) :string|null
+    public function __get($name) :string|null|array
     {
         return $this->attributes[$name] ?? null;
+    }
+
+    /**
+     * @param $name
+     * @param $value
+     * @return void
+     */
+    public function __set($name, $value) :void
+    {
+        $this->attributes[$name] = $value;
     }
 
     /**
@@ -65,6 +75,10 @@ class Model
         $query = $db->prepare("SELECT * FROM " . static::$table . " WHERE " . static::$primaryKey . " = ?");
         $query->execute([$id]);
         $data = $query->fetch(\PDO::FETCH_ASSOC);
+
+        if(!$data){
+            throw new \Exception('Объект не найден');
+        }
 
         return self::prepare($data);
     }
