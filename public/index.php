@@ -7,9 +7,7 @@ use App\Core\Router;
 try {
     require_once __DIR__ . '/../routes/web.php';
 
-    //var_dump(Router::getRouteList());
     Router::dispatch();
-
 } catch (Exception $e) {
     $smarty = new SmartyWrapper();
     $smarty->display('error.tpl', [

@@ -150,7 +150,7 @@ class Router
      * @return mixed
      * @throws \Exception
      */
-    public static function url(string $name, array $params = [])
+    public static function url(string $name, array $params = []) :string
     {
         if(!isset(self::$namedRoutes[$name])){
             throw new \Exception("Маршрут не найден");

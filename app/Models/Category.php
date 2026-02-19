@@ -4,9 +4,17 @@ namespace App\Models;
 
 class Category extends Model
 {
-    protected static $table = 'categories';
+    protected static string $table = 'categories';
 
-    public function posts($limit = 3, $sort = 'created_at', $orderBy = 'desc', $offset = null)
+    /**
+     * Посты категории
+     * @param $limit
+     * @param $sort
+     * @param $orderBy
+     * @param $offset
+     * @return array
+     */
+    public function posts($limit = 3, $sort = 'created_at', $orderBy = 'desc', $offset = null) :array
     {
         $sql = "SELECT p.*
             FROM posts as p

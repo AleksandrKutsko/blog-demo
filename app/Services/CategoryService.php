@@ -6,6 +6,11 @@ use App\Config\Database;
 
 class CategoryService
 {
+    /**
+     * Возвращает количество постов у категории
+     * @param $categoryId
+     * @return int+
+     */
     public static function getPostsCount($categoryId) :int
     {
         $db = Database::getInstance();

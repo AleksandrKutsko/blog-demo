@@ -6,7 +6,7 @@ use Smarty\Smarty;
 
 class SmartyWrapper
 {
-    private $smarty;
+    private object $smarty;
 
     public function __construct()
     {
@@ -22,7 +22,7 @@ class SmartyWrapper
         $this->registerRouteFunction();
     }
 
-    public function render($template, $data = [])
+    public function render($template, $data = []) :string
     {
         foreach ($data as $key => $value) {
             $this->smarty->assign($key, $value);
@@ -30,7 +30,7 @@ class SmartyWrapper
         return $this->smarty->fetch($template);
     }
 
-    public function display($template, $data = [])
+    public function display($template, $data = []) :void
     {
         foreach ($data as $key => $value) {
             $this->smarty->assign($key, $value);

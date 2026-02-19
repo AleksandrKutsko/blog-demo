@@ -6,7 +6,13 @@ use App\Models\Category;
 
 class HomeController extends Controller
 {
-    public function index(){
+
+    /**
+     * Обработчик маршрута главной
+     * @return void
+     */
+    public function index() :void
+    {
         $categories = Category::getAll();
         $categoriesPosts = [];
 
@@ -21,7 +27,12 @@ class HomeController extends Controller
         ]);
     }
 
-    public function notFound(){
+    /**
+     * Маршрут страницы 404
+     * @return void
+     */
+    public function notFound() :void
+    {
         http_response_code(404);
 
         $this->smarty()->display('error.tpl', [

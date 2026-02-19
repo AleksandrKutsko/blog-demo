@@ -186,6 +186,7 @@ footer {
   list-style: none;
   gap: 15px;
   font-size: 14px;
+  flex-wrap: wrap;
 }
 .sort-list a{
   font-weight: 400;

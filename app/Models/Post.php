@@ -4,9 +4,14 @@ namespace App\Models;
 
 class Post extends Model
 {
-    protected static $table = 'posts';
+    protected static string $table = 'posts';
 
-    public function category(){
+    /**
+     * Возвращает родительскую категорию поста
+     * @return object
+     */
+    public function category() :object
+    {
         $sql = "SELECT c.*
             FROM categories as c
             JOIN post_category as pc

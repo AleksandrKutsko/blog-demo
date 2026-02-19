@@ -7,7 +7,8 @@ use App\Services\CategoryService;
 
 class CategoryController extends Controller
 {
-    public function show(int $id){
+    public function show(int $id) :void
+    {
         $postsCount = CategoryService::getPostsCount($id);
 
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;

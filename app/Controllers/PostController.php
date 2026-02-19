@@ -6,7 +6,13 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    public function show($id){
+    /**
+     * Обработчик страницы поста
+     * @param $id
+     * @return void
+     */
+    public function show($id) :void
+    {
         $post = Post::find($id);
         $category = $post->category();
         $relatedPosts = $category->posts();

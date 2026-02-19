@@ -5,14 +5,14 @@ use App\Core\SmartyWrapper;
 
 class Controller
 {
-    private $smarty;
+    private object $smarty;
 
     public function __construct()
     {
         $this->smarty = new SmartyWrapper();
     }
 
-    protected function smarty()
+    protected function smarty() :object
     {
         return $this->smarty;
     }

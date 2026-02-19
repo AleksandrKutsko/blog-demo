@@ -30,8 +30,7 @@ class Database
         try {
             $this->connection = new PDO($dsn, $username, $password, $options);
         } catch (PDOException $e) {
-            // В продакшене лучше логировать ошибку, а не выводить
-            die("Ошибка подключения к базе данных: " . $e->getMessage());
+            return false;
         }
     }
 

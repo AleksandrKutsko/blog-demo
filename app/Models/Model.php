@@ -6,32 +6,43 @@ use App\Config\Database;
 
 class Model
 {
-    private $db;
+    private object $db;
+    protected static string $table;
+    protected static string $primaryKey = 'id';
 
-    protected static $table;
+    public static int $count;
 
-    protected static $primaryKey = 'id';
-
-    public static $count;
-
-    protected $attributes;
+    protected array $attributes;
 
     public function __construct()
     {
         $this->db = Database::getInstance();
     }
 
-    protected function db()
+    /**
+     * PDO Connection
+     * @return object|\PDO
+     */
+    protected function db() :object
     {
         return $this->db;
     }
 
-    public function __get($name)
+    /**
+     * Геттер свойств модели
+     * @param $name
+     * @return string|null
+     */
+    public function __get($name) :string|null
     {
         return $this->attributes[$name] ?? null;
     }
 
-    public static function getAll()
+    /**
+     * Получение всех данные модели
+     * @return array
+     */
+    public static function getAll() :array
     {
         $db = Database::getInstance();
 
@@ -42,7 +53,12 @@ class Model
         return self::preparedFetchData($allResult);
     }
 
-    public static function find($id)
+    /**
+     * Поиск модели по первичному ключу
+     * @param $id
+     * @return object|static
+     */
+    public static function find($id) :object
     {
         $db = Database::getInstance();
 
@@ -53,7 +69,13 @@ class Model
         return self::prepare($data);
     }
 
-    public static function prepare($data){
+    /**
+     * Возвращает объект класса (модели)
+     * @param $data
+     * @return object|static
+     */
+    public static function prepare($data) :object
+    {
         $obj = new static();
 
         $obj->attributes = $data;
@@ -61,7 +83,13 @@ class Model
         return $obj;
     }
 
-    public static function preparedFetchData($fetchData){
+    /**
+     * Возвращает массив объектов
+     * @param $fetchData
+     * @return array
+     */
+    public static function preparedFetchData($fetchData) :array
+    {
         $preparedItems = [];
 
         foreach($fetchData as $item){
