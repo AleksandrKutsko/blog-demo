@@ -119,7 +119,9 @@ class Model
         $set = [];
         $values = [];
 
-        foreach ($this->attributes as $field => $value) {
+        $data = array_intersect_key($this->attributes, array_flip($this->fillable));
+
+        foreach ($data as $field => $value) {
             $set[] = "{$field} = ?";
             $values[] = $value;
         }

@@ -1,1 +1,1 @@
-{"version":2,"defects":{"Unit\\Models\\CategoryTest::testCanFindCategoryById":7},"times":{"Unit\\Models\\CategoryTest::testCanCreateCategory":0.008,"Unit\\Models\\CategoryTest::testCanFindCategoryById":0.009,"Models\\PostTest::testCanCreatePost":0.009}}
+{"version":2,"defects":{"Unit\\Models\\CategoryTest::testCanFindCategoryById":7},"times":{"Unit\\Models\\CategoryTest::testCanCreateCategory":0.01,"Unit\\Models\\CategoryTest::testCanFindCategoryById":0.01,"Models\\PostTest::testCanCreatePost":0.008}}
