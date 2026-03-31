@@ -42,8 +42,7 @@ class CategoryTest extends TestCase
         $this->category->save();
         $id = $this->category->id;
 
-        $found = new Category();
-        $found->find($id);
+        $found = Category::find($id);
 
         $this->assertEquals('Для поиска', $found->title);
     }
