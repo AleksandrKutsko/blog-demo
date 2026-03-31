@@ -11,11 +11,11 @@ class Database
 
     private function __construct()
     {
-        $host = 'mysql';
-        $port = '3306';
-        $dbname = 'blog_db';
-        $username = 'blog_user';
-        $password = 'blog_password';
+        $host = getenv('DB_HOST');
+        $port = getenv('DB_PORT');
+        $dbname = getenv('DB_NAME');
+        $username = getenv('DB_USER');
+        $password = getenv('DB_PASS');
 
         $charset = 'utf8mb4';
         $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
