@@ -23,13 +23,6 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $posts = $category->posts($perPage, $sort, $orderBy, $offset);
 
-        $newCat = new Category();
-        $newCat->title = 'Новая тест';
-        $newCat->description = 'Новая тест описание';
-        $newCat->save();
-        $newCat->title = 'Новая тест. Обновленная';
-        $newCat->save();
-
         $this->smarty()->display('blog.tpl', [
             'page_title' => $category->title,
             'page_description' => $category->description,
