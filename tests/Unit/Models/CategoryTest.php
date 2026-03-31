@@ -24,4 +24,27 @@ class CategoryTest extends TestCase
 
         $this->category = new Category();
     }
+
+    public function testCanCreateCategory() :void
+    {
+        $this->category->title = 'Тестовая категория';
+        $this->category->description = 'Описание тестовой категории';
+
+        $result = $this->category->save();
+
+        $this->assertTrue($result);
+        $this->assertNotNull($this->category->id);
+    }
+
+    public function testCanFindCategoryById(){
+        $this->category->title = 'Для поиска';
+        $this->category->description = 'Описание тестовой категории';
+        $this->category->save();
+        $id = $this->category->id;
+
+        $found = new Category();
+        $found->find($id);
+
+        $this->assertEquals('Для поиска', $found->title);
+    }
 }

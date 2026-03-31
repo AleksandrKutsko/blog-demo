@@ -37,6 +37,7 @@ services:
       MYSQL_DATABASE: blog_db
       MYSQL_USER: blog_user
       MYSQL_PASSWORD: blog_password
+      MYSQL_ROOT_HOST: '%'
     volumes:
       - mysql_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
