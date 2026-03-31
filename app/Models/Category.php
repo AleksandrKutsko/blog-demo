@@ -6,6 +6,8 @@ class Category extends Model
 {
     protected static string $table = 'categories';
 
+    protected array $fillable = ['title', 'description'];
+
     /**
      * Посты категории
      * @param $limit

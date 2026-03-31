@@ -5,6 +5,7 @@ namespace App\Models;
 class Post extends Model
 {
     protected static string $table = 'posts';
+    protected array $fillable = ['title', 'description', 'content', 'image_path'];
 
     /**
      * Возвращает родительскую категорию поста

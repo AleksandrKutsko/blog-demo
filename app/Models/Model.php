@@ -9,6 +9,7 @@ class Model
     private object $db;
     protected static string $table;
     protected static string $primaryKey = 'id';
+    protected array $fillable = [];
 
     public static int $count;
 
@@ -46,6 +47,92 @@ class Model
     public function __set($name, $value) :void
     {
         $this->attributes[$name] = $value;
+    }
+
+    /**
+     * Сохранить модель. Вставит либо обновит
+     * @return bool
+     */
+    public function save() :bool
+    {
+        if($this->exists()){
+            return $this->update();
+        }
+
+        return $this->insert();
+    }
+
+    /**
+     * Проверяет, существует ли запись в БД
+     *
+     * @return bool|array
+     */
+    protected function exists() :bool|array
+    {
+        if (!isset($this->attributes[static::$primaryKey])) {
+            return false;
+        }
+
+        $stmt = $this->db->prepare("SELECT 1 FROM ".static::$table." WHERE ".static::$primaryKey." = ?");
+        $stmt->execute([$this->attributes[static::$primaryKey]]);
+
+        return $stmt->fetch();
+    }
+
+    /**
+     * Вставка новой записи
+     *
+     * @return bool
+     */
+    protected function insert() :bool
+    {
+        // Берем только fillable поля
+        $data = array_intersect_key($this->attributes, array_flip($this->fillable));
+
+        if (empty($data)) {
+            return false;
+        }
+
+        $fields = array_keys($data);
+        $placeholders = implode(',', array_fill(0, count($fields), '?'));
+        $columns = implode(',', $fields);
+
+        $sql = "INSERT INTO ".static::$table." ({$columns}) VALUES ({$placeholders})";
+        $stmt = $this->db->prepare($sql);
+
+        $result = $stmt->execute(array_values($data));
+
+        if ($result) {
+            $this->attributes[static::$primaryKey] = $this->db->lastInsertId();
+        }
+
+        return $result;
+    }
+
+    /**
+     * Обновление существующей записи
+     *
+     * @return bool
+     */
+    protected function update()
+    {
+        $set = [];
+        $values = [];
+
+        foreach ($this->attributes as $field => $value) {
+            $set[] = "{$field} = ?";
+            $values[] = $value;
+        }
+
+        // Добавляем ID для WHERE
+        $values[] = $this->attributes[static::$primaryKey];
+
+        $sql = "UPDATE ".static::$table." SET " . implode(', ', $set) . " WHERE ".static::$primaryKey." = ?";
+        $stmt = $this->db->prepare($sql);
+
+        $result = $stmt->execute($values);
+
+        return $result;
     }
 
     /**
